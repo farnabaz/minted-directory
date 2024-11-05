@@ -8,7 +8,14 @@ const config = useAppConfig();
 const title = computed(() => formatString(config.directory.tagPages?.title || "All {0}", route.params.slug));
 const description = computed(() => formatString(config.directory.tagPages?.description || "All {0}", route.params.slug));
 
-const { data } = await useAsyncData(`tag-${route.params.slug}`, () => queryContent("/dir").where({ $and: [{ _extension: "md" }, { tags: { $contains: route.params.slug } }] }).find());
+const { data } = await useAsyncData(`tag-${route.params.slug}`, () =>{
+  return queryCollection('directory')
+    .where('tags', 'LIKE', `%${route.params.slug}%`)
+    .all()
+});
+
+// Reset Content Page & layout
+useContent(null)
 
 // SEO setup
 const app = useNuxtApp();
@@ -21,9 +28,6 @@ defineOgImage({
   description: description.value
 });
 
-definePageMeta({
-  documentDriven: false
-});
 </script>
 
 <template>

@@ -1,13 +1,11 @@
 <script setup lang="ts">
 const { layout } = useContent();
-
-const layoutName = computed(() => layout.value || 'wide');
 </script>
 
 <template>
 
   <AppLayout>
-    <NuxtLayout :name="layoutName">
+    <NuxtLayout :name="layout">
       <NuxtPage class="page-enter-active" />
     </NuxtLayout>
   </AppLayout>

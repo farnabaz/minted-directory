@@ -1,17 +1,13 @@
-import { useAsyncData, type AsyncData } from "nuxt/app";
+import { useAsyncData } from "nuxt/app";
 import type ListingContent from "~/types/Listing";
 
 export function useDirectory() {
   const directoryData = useAsyncData("board", () => {
-    const query = queryContent("/dir");
+    const query = queryCollection('directory');
 
-    query.where({
-      _extension: "md",
-    });
+    query.select("featured", "card_image", "description", "title", "path");
 
-    query.only(["featured", "card_image", "description", "title", "_path"]);
-
-    return query.sort({ featured: 1 }).find() as Promise<ListingContent[]>;
+    return query.order('featured', "DESC").all()
   });
 
   return directoryData;

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { AsyncData } from '#app';
-import type ListingContent from '~/types/Listing';
-
-const { data: featured } = await useAsyncData('featured', () => queryContent('/dir').where({ featured: { $exists: true } }).only(['title', 'description', '_path', 'card_image']).findOne()) as AsyncData<ListingContent, Error | null>;
+const { data: featured } = await useAsyncData('featured', () => queryCollection('directory')
+  .where('featured', 'IS NOT NULL', undefined)
+  .select('title', 'description', 'path', 'card_image')
+  .first()
+);
 const config = useAppConfig();
 const featuredExists = computed(() => featured.value);
 </script>
@@ -15,7 +16,7 @@ const featuredExists = computed(() => featured.value);
         <p class="font-bold text-2xl dark:text-white tracking-tight">{{ featured?.title }}</p>
         <p class="text-gray-700 italic dark:text-gray-300">{{ featured?.description }}</p>
       </div>
-      <NuxtLink class="mt-3" :to="featured._path">
+      <NuxtLink class="mt-3" :to="featured?.path">
         <UiButton icon="tabler:click">Learn More</UiButton>
       </NuxtLink>
     </div>

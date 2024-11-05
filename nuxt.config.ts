@@ -12,18 +12,30 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@nuxt/image",
     "@nuxt/fonts",
+    "@nuxtjs/robots",
   ],
 
   colorMode: {
     classSuffix: "",
   },
 
+  sitemap:{
+    enabled: false,
+  },
+
+  robots: {
+    enabled: false
+  },
   // https://content.nuxt.com/
   content: {
-    documentDriven: {
-      injectPage: false,
-    },
-    highlight: false,
+    // documentDriven: {
+    //   injectPage: false,
+    // },
+    build: {
+      markdown: {
+        highlight: false,
+      }
+    }
   },
 
   ogImage: {
@@ -35,10 +47,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       posthogPublicKey: process.env.POSTHOG_PUBLIC_KEY,
-      posthogHost: process.env.POSTHOG_HOST,
-      mdc: {
-        useNuxtImage: true,
-      },
+      posthogHost: process.env.POSTHOG_HOST
     },
   },
   nitro: {
@@ -47,6 +56,9 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: ["/", "/sitemap.xml"],
     },
+    alias: {
+      '#content/server': '~~/mocks/content-server'
+    }
   },
   site: {
     url: "https://example.com",

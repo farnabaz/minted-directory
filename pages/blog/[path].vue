@@ -6,7 +6,7 @@ const app = useNuxtApp();
 const route = useRoute()
 
 const { data } = await useAsyncData(route.path, () => {
-  return queryCollection('content').path(route.path).first()
+  return queryCollection('blog').path(route.path).first()
 })
 
 const { page, layout } = useContent(data.value);
