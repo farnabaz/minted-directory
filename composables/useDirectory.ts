@@ -5,7 +5,7 @@ export function useDirectory() {
   const directoryData = useAsyncData("board", () => {
     const query = queryCollection('directory');
 
-    query.select("featured", "card_image", "description", "title", "path");
+    query.select("featured", "card_image", "description", "title", "path", "tags");
 
     return query.order('featured', "DESC").all()
   });

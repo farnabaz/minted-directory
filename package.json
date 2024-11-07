@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
-    "@nuxt/content": "https://pkg.pr.new/@nuxt/content@691b2e3",
+    "@nuxt/content": "^3.0.0-alpha.6",
     "@nuxt/fonts": "^0.10.2",
     "@nuxt/image": "^1.8.1",
     "@nuxt/scripts": "^0.9.5",
